@@ -1,0 +1,1 @@
+This example class was graded and we had to do linear regression to find out the best predictor of house sale prices

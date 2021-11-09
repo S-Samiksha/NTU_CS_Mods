@@ -1,0 +1,4 @@
+This exercise is a graded assignment where we had to predict whether the house had central air or not using predictors like Ground living area, the Year Built, Sale Price, 
+and the Overall Quality of the house. 
+
+We used a description tree using SKlearn and graphviz. 

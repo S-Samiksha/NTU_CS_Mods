@@ -1,0 +1,3 @@
+Example Class 1: Basic Python for Data Science using Pandas Module
+Retrieving Data and tables 
+Creating DataFrames 
