@@ -21,15 +21,12 @@ typedef struct _graph{
     union GraphForm adj;
 }Graph;
 
-
-
 void printGraphMatrix(Graph );
 void adjM2adjL(Graph *);
 void adjL2adjM(Graph *);
 void printGraphList(Graph );
 void calDegreeV(Graph,int *);
 void printDegreeV(int *,int );
-int insertNode(LinkedList *ll, int index, int value);
 
 int main()
 {
@@ -130,35 +127,90 @@ void adjM2adjL(Graph *g)
 {
  // Question 1
  // Write your code here
- int i=0,j=0;
- ListNode *temp;
- for(i=1;i<g->V;i++){
-     for (j=1;j<g->V;j++){
-         if (g->adj.list[i]==NULL && g->adj.matrix[i][j]==1){
-             g->adj.list[i] = malloc(sizeof(ListNode));
-             g->adj.list[i]->next=NULL;
-             g->adj.list[i]->vertex = j;
-         }else if (g->adj.list[i]!=NULL && g->adj.matrix[i][j]==1){
-             temp = malloc(sizeof(ListNode));
-             temp->next = *(g->adj.list[i]);
-             temp->vertex=j;
-             *(g->adj.list[i]) = temp;
+ if (g->type == ADJ_LIST){
+        return;
+    }
+    int i=0, j=0;
+    ListNode *temp, **list;
+    //must use a separate list 
+    list = (ListNode **)malloc(g->V*sizeof(ListNode *));
+
+    for(i=0;i<g->V;i++){
+        list[i]= NULL;
+    }
+
+    for(i=0;i<g->V;i++){
+        for(j=0;j<g->V;j++){
+            if (g->adj.matrix[i][j] == 1){
+                temp = (ListNode *)(malloc(sizeof(ListNode )));
+                temp->next = NULL;
+                temp->vertex = j+1;
+                if (list[i] == NULL){
+                    list[i] = temp;
+                }else{
+                    temp->next = list[i]->next;
+                    list[i]->next = temp;
+                    
+                }
 
 
+            }
+        }
+    }
+   
 
-         }
-         
+    //free adjMatrix
+    for(i=0;i<g->V;i++){
+        free(g->adj.matrix[i]);
 
-     }
- }
-  
+    }
+    free(g->adj.matrix);
+
+     g->adj.list = list;
+    g->type = ADJ_LIST;
+
+    
 
 }
 
 void adjL2adjM(Graph *g){
 	// Question 2
     // Write your code here
+    int **matrix, i=0, j=0;
+    ListNode *temp, *temp2;
+    if (g->type == ADJ_MATRIX){
+     return;
+    }
+   
+
+    matrix = (int **)malloc(g->V*sizeof(int *));
+    for(i=0;i<g->V;i++)
+        matrix[i] = (int *)malloc(g->V*sizeof(int));
     
+     for(i=0;i<g->V;i++)
+        for(j=0;j<g->V;j++)
+            matrix[i][j] = 0;
+
+    for(i=0;i<g->V;i++){
+        temp = g->adj.list[i];
+        while(temp!=NULL){
+            matrix[i][temp->vertex -1] = 1;
+            temp = temp->next;
+        }
+    }
+    for(i=0;i<g->V;i++)
+    {
+        temp = g->adj.list[i];
+        while(temp!=NULL){
+            temp2= temp;
+            temp = temp->next;
+            free(temp2);
+        }
+    }
+    g->adj.matrix = matrix;
+    
+
+    g->type = ADJ_MATRIX;
 
 }
 
@@ -166,5 +218,32 @@ void calDegreeV(Graph g, int *degreeV)
 {
 	// Question 3
     // Write your code here
-}
+    int i=0, count=0, j=0;
+    ListNode *temp;
+    if(g.type == ADJ_LIST){
+        for(i=0;i<g.V;i++)
+        {
+            temp = g.adj.list[i];
+            while(temp !=NULL){
+                count++;
+                temp = temp->next;
+            }
+            degreeV[i]= count;
+            count =0;
+        }
 
+    }
+    if (g.type == ADJ_MATRIX){
+        for(i=0;i<g.V;i++){
+            for(j=0;j<g.V;j++)
+                if (g.adj.matrix[i][j]==1){
+                    count++;
+                }
+            degreeV[i] = count;
+            count=0;
+            
+    }
+    }
+
+    
+}
