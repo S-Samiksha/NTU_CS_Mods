@@ -121,8 +121,16 @@ int Hash(int key,int hSize)
 ListNode* HashSearch(HashTable Q3Hash, int key)
 {
  // Write your code here
-    int keyvalue = Hash(key, Q3Hash.hSize);
+
+
+    
+    int keyvalue = 0;
     ListNode *temp;
+     //Something important is checking if the table exists in the first place
+    if (Q3Hash.hSize ==0){
+        return NULL;
+    }
+    keyvalue = Hash(key, Q3Hash.hSize);
     temp = Q3Hash.Table[keyvalue].head;
     while(temp != NULL){
         if (temp->key == key){
@@ -140,6 +148,11 @@ int HashInsert(HashTable* Q3HashPtr, int key)
     
     int keyvalue = Hash(key, Q3HashPtr->hSize);
     ListNode *temp; 
+    //Something important is checking if the table exists in the first place
+    if (Q3HashPtr->hSize ==0){
+        return NULL;
+    }
+    //Next important check point is check if it is a duplicate or not 
     if (HashSearch(*Q3HashPtr, key) != NULL){
         return 0;
     }
@@ -149,7 +162,7 @@ int HashInsert(HashTable* Q3HashPtr, int key)
     if (Q3HashPtr->Table[keyvalue].size == 0){
         Q3HashPtr->Table[keyvalue].head = temp;
         Q3HashPtr->Table[keyvalue].size++;
-        Q3HashPtr->nSize++;
+        Q3HashPtr->nSize++; //remember this is important too 
         return 1;
 
     }else{
