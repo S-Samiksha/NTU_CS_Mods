@@ -49,6 +49,7 @@ int main()
     printf("|5. Quit                            |\n");
     printf("=====================================\n");
 
+
     printf("Enter selection: ");
     scanf("%d",&opt);
     while(opt>=1 && opt <=4){
@@ -120,11 +121,45 @@ int Hash(int key,int hSize)
 ListNode* HashSearch(HashTable Q3Hash, int key)
 {
  // Write your code here
+    int keyvalue = Hash(key, Q3Hash.hSize);
+    ListNode *temp;
+    temp = Q3Hash.Table[keyvalue].head;
+    while(temp != NULL){
+        if (temp->key == key){
+            return temp;
+        }
+        temp= temp->next;
+    }
+    return NULL;
 }
+
 
 int HashInsert(HashTable* Q3HashPtr, int key)
 {
  // Write your code here
+    
+    int keyvalue = Hash(key, Q3HashPtr->hSize);
+    ListNode *temp; 
+    if (HashSearch(*Q3HashPtr, key) != NULL){
+        return 0;
+    }
+    temp = (ListNode *)(malloc(sizeof(ListNode)));
+    temp->next = NULL;
+    temp->key = key;
+    if (Q3HashPtr->Table[keyvalue].size == 0){
+        Q3HashPtr->Table[keyvalue].head = temp;
+        Q3HashPtr->Table[keyvalue].size++;
+        Q3HashPtr->nSize++;
+        return 1;
+
+    }else{
+        temp->next = Q3HashPtr->Table[keyvalue].head->next;
+        Q3HashPtr->Table[keyvalue].head->next = temp; 
+        Q3HashPtr->Table[keyvalue].size++;
+        Q3HashPtr->nSize++;
+        return 1;
+    }
+
 
 }
 
