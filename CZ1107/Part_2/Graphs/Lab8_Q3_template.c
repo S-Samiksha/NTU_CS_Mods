@@ -32,6 +32,26 @@ int nQueens(int** board, int BSize, int col)
 {
  //Write your code here
  //Safe Place checking is provide below, you are free to use it.
+    int i=0, found=0;
+    //to print size is important 
+    if (col == BSize){
+        printSolution(board, BSize);
+        return 1;
+
+    }
+    for (i=0; i<BSize; i++){
+        if (isSafe(board, BSize, i, col)){
+            board[i][col] = 1;
+            if (nQueens(board, BSize, col+1)==1){
+                found++; //do not return here 
+            }
+            board[i][col] = 0;
+        }
+
+    }
+    return found; 
+    
+
 }
 
 //Safe checking

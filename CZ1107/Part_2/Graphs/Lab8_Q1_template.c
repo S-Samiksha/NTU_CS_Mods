@@ -29,6 +29,7 @@ int isEmptyStack(Stack s);
 void removeAllItemsFromStack(Stack *sPtr);
 ////GRAPH////////////////////////////////////////////
 void printGraphMatrix(Graph );
+int isMarked(int target, int list[], int size);
 ////////////////////////////////////////////
 
 void DFS_I (Graph , int );
@@ -76,6 +77,55 @@ int main()
 void DFS_I (Graph g, int v)
 {
 //Write your code here
+    int j=0, marked[g.V], tempv, i=0;
+    Stack temp;
+    temp.head = NULL;
+    temp.size=0;
+    //marked = (int *)malloc(sizeof(int)*g.V); //you must allocate 
+    printf("DFS result: ");
+    
+    for(i=0;i<g.V;i++){
+        marked[i]=0;
+    }
+
+    push(&temp, v-1);
+    marked[v-1] = 1;
+    while (isEmptyStack(temp)==0){
+        tempv = peek(temp);
+
+        i=0;
+        for(j=0;j<g.V;j++){
+            if (g.matrix[tempv][j]==1 && marked[j]==0){
+                push(&temp, j);
+                marked[j] = 1;
+                i=1;
+                break;
+            }
+        }
+        if (i==0){
+            printf("%d ", peek(temp)+1);
+            pop(&temp);
+        }
+        //j=0;
+
+    }
+
+    free(marked);
+
+
+}
+
+int isMarked(int target, int list[], int size){
+    int i=0;
+    //the issue is here 
+    //i<=size causes runtime 
+    for(i=0;i<size;i++){
+        if (target == list[i]){
+            return 1;
+        }
+    }
+    return 0;
+
 }
 
 void printGraphMatrix(Graph g)
