@@ -1,4 +1,5 @@
 ### NTU_CS_Mods
+Do note that some of these modules were taken after the change of syllabus. 
 
 **Modules taken**
 1. CZ1003 Introduction to Computational Thinking and Programming (Python and C programming): AY2020/21 Semester 1
