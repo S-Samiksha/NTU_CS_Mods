@@ -8,5 +8,5 @@ Do note that some of these modules were taken after the change of syllabus.
 4. CZ2002 Object-Oriented Programming (Java and C++): AY2021/22 Semester 1
 
 **Link to Group Projects**
-1. (CZ115 Introduction to DSAI: AY2020/21 Semester 2)[]
-2. (CZ2006 Software Engineering: AY2021/22 Semester 1)[https://github.com/S-Samiksha/CX2006_Coding]
+1. [CZ115 Introduction to DSAI: AY2020/21 Semester 2](https://github.com/S-Samiksha/DSAI-Project)
+2. [CZ2006 Software Engineering: AY2021/22 Semester 1](https://github.com/S-Samiksha/CX2006_Coding)
