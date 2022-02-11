@@ -10,3 +10,4 @@ Do note that some of these modules were taken after the change of syllabus.
 **Link to Projects**
 1. [CZ115 Introduction to DSAI: AY2020/21 Semester 2](https://github.com/S-Samiksha/DSAI-Project)
 2. [CZ2006 Software Engineering: AY2021/22 Semester 1](https://github.com/S-Samiksha/CX2006_Coding)
+3. [CZ2002 Object Oriented Programming: AY2021/22 Semester 1](https://github.com/S-Samiksha/Restaurant_Reservation_and_Point_of_Sale_System)
