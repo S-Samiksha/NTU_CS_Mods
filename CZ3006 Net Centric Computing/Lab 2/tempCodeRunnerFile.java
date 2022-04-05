@@ -1,0 +1,1 @@
+byte buf[]=new byte[512];
