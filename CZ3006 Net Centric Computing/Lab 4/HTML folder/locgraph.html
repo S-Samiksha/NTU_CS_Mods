@@ -1,0 +1,129 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 500px;
+            height: 500px;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+        #config {
+            float: left;
+            width: 400px;
+            height: 600px;
+        }
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<div id = "config"></div>
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"id": "Singapore", "label": "Singapore", "shape": "dot"}, {"id": "United States", "label": "United States", "shape": "dot"}, {"id": "India", "label": "India", "shape": "dot"}, {"id": "Indonesia", "label": "Indonesia", "shape": "dot"}, {"id": "United Kingdom", "label": "United Kingdom", "shape": "dot"}, {"id": "Korea, Republic of", "label": "Korea, Republic of", "shape": "dot"}, {"id": "Hong Kong", "label": "Hong Kong", "shape": "dot"}, {"id": "Taiwan, Province of China", "label": "Taiwan, Province of China", "shape": "dot"}, {"id": "Japan", "label": "Japan", "shape": "dot"}, {"id": "China", "label": "China", "shape": "dot"}, {"id": "Malaysia", "label": "Malaysia", "shape": "dot"}, {"id": "Australia", "label": "Australia", "shape": "dot"}, {"id": "France", "label": "France", "shape": "dot"}, {"id": "Switzerland", "label": "Switzerland", "shape": "dot"}, {"id": "Turkey", "label": "Turkey", "shape": "dot"}, {"id": "Germany", "label": "Germany", "shape": "dot"}, {"id": "Greece", "label": "Greece", "shape": "dot"}, {"id": "Poland", "label": "Poland", "shape": "dot"}, {"id": "Canada", "label": "Canada", "shape": "dot"}, {"id": "Finland", "label": "Finland", "shape": "dot"}, {"id": "Netherlands", "label": "Netherlands", "shape": "dot"}, {"id": "Pakistan", "label": "Pakistan", "shape": "dot"}, {"id": "Trinidad and Tobago", "label": "Trinidad and Tobago", "shape": "dot"}, {"id": "Thailand", "label": "Thailand", "shape": "dot"}, {"id": "Sri Lanka", "label": "Sri Lanka", "shape": "dot"}, {"id": "Belarus", "label": "Belarus", "shape": "dot"}, {"id": "Kazakhstan", "label": "Kazakhstan", "shape": "dot"}, {"id": "Argentina", "label": "Argentina", "shape": "dot"}, {"id": "New Zealand", "label": "New Zealand", "shape": "dot"}, {"id": "Saudi Arabia", "label": "Saudi Arabia", "shape": "dot"}, {"id": "Bangladesh", "label": "Bangladesh", "shape": "dot"}, {"id": "Norway", "label": "Norway", "shape": "dot"}, {"id": "Spain", "label": "Spain", "shape": "dot"}, {"id": "Russian Federation", "label": "Russian Federation", "shape": "dot"}, {"id": "Czech Republic", "label": "Czech Republic", "shape": "dot"}, {"id": "Brazil", "label": "Brazil", "shape": "dot"}, {"id": "Croatia", "label": "Croatia", "shape": "dot"}, {"id": "Sweden", "label": "Sweden", "shape": "dot"}, {"id": "Uruguay", "label": "Uruguay", "shape": "dot"}, {"id": "Denmark", "label": "Denmark", "shape": "dot"}, {"id": "Ukraine", "label": "Ukraine", "shape": "dot"}]);
+        edges = new vis.DataSet([{"from": "Singapore", "to": "United Kingdom", "value": 4951}, {"from": "United States", "to": "Singapore", "value": 2842}, {"from": "India", "to": "United States", "value": 2368}, {"from": "India", "to": "Taiwan, Province of China", "value": 2056}, {"from": "Indonesia", "to": "United States", "value": 1752}, {"from": "United States", "to": "United States", "value": 1257}, {"from": "Korea, Republic of", "to": "Malaysia", "value": 1217}, {"from": "Hong Kong", "to": "Singapore", "value": 1209}, {"from": "Taiwan, Province of China", "to": "United Kingdom", "value": 958}, {"from": "Japan", "to": "India", "value": 797}, {"from": "China", "to": "Singapore", "value": 778}, {"from": "Singapore", "to": "Singapore", "value": 767}, {"from": "Indonesia", "to": "Japan", "value": 552}, {"from": "Malaysia", "to": "United States", "value": 538}, {"from": "Singapore", "to": "Thailand", "value": 504}, {"from": "Japan", "to": "Singapore", "value": 350}, {"from": "Malaysia", "to": "Hong Kong", "value": 309}, {"from": "India", "to": "China", "value": 205}, {"from": "United Kingdom", "to": "Australia", "value": 186}, {"from": "Australia", "to": "Australia", "value": 173}, {"from": "France", "to": "Singapore", "value": 167}, {"from": "Malaysia", "to": "Japan", "value": 162}, {"from": "Taiwan, Province of China", "to": "France", "value": 105}, {"from": "Taiwan, Province of China", "to": "Spain", "value": 90}, {"from": "Switzerland", "to": "Singapore", "value": 86}, {"from": "Malaysia", "to": "Singapore", "value": 85}, {"from": "Turkey", "to": "Taiwan, Province of China", "value": 84}, {"from": "Korea, Republic of", "to": "India", "value": 60}, {"from": "Germany", "to": "Singapore", "value": 53}, {"from": "Malaysia", "to": "Taiwan, Province of China", "value": 26}, {"from": "India", "to": "Netherlands", "value": 20}, {"from": "Greece", "to": "Singapore", "value": 18}, {"from": "Poland", "to": "Singapore", "value": 18}, {"from": "Taiwan, Province of China", "to": "Singapore", "value": 14}, {"from": "Singapore", "to": "Finland", "value": 9}, {"from": "Taiwan, Province of China", "to": "Germany", "value": 9}, {"from": "Singapore", "to": "Australia", "value": 9}, {"from": "Korea, Republic of", "to": "Korea, Republic of", "value": 8}, {"from": "Canada", "to": "Malaysia", "value": 7}, {"from": "Netherlands", "to": "Singapore", "value": 7}, {"from": "Finland", "to": "Malaysia", "value": 7}, {"from": "China", "to": "Germany", "value": 7}, {"from": "Pakistan", "to": "India", "value": 6}, {"from": "Singapore", "to": "Uruguay", "value": 6}, {"from": "Trinidad and Tobago", "to": "Sri Lanka", "value": 5}, {"from": "Thailand", "to": "India", "value": 4}, {"from": "Singapore", "to": "Czech Republic", "value": 4}, {"from": "Indonesia", "to": "Denmark", "value": 4}, {"from": "Sri Lanka", "to": "United States", "value": 4}, {"from": "Greece", "to": "Taiwan, Province of China", "value": 4}, {"from": "Belarus", "to": "Taiwan, Province of China", "value": 4}, {"from": "Kazakhstan", "to": "Taiwan, Province of China", "value": 4}, {"from": "India", "to": "Singapore", "value": 3}, {"from": "Argentina", "to": "Malaysia", "value": 3}, {"from": "United States", "to": "Taiwan, Province of China", "value": 3}, {"from": "New Zealand", "to": "India", "value": 3}, {"from": "Taiwan, Province of China", "to": "Russian Federation", "value": 3}, {"from": "Saudi Arabia", "to": "Malaysia", "value": 3}, {"from": "Bangladesh", "to": "China", "value": 3}, {"from": "Norway", "to": "Indonesia", "value": 3}, {"from": "Spain", "to": "Singapore", "value": 2}, {"from": "India", "to": "Sweden", "value": 2}, {"from": "India", "to": "Australia", "value": 2}, {"from": "India", "to": "Russian Federation", "value": 2}, {"from": "India", "to": "Denmark", "value": 2}, {"from": "India", "to": "Hong Kong", "value": 2}, {"from": "Singapore", "to": "Canada", "value": 2}, {"from": "Singapore", "to": "Brazil", "value": 2}, {"from": "Poland", "to": "Taiwan, Province of China", "value": 2}, {"from": "Russian Federation", "to": "Singapore", "value": 2}, {"from": "Indonesia", "to": "Russian Federation", "value": 2}, {"from": "Brazil", "to": "Malaysia", "value": 2}, {"from": "Croatia", "to": "Singapore", "value": 2}, {"from": "Sweden", "to": "Singapore", "value": 2}, {"from": "India", "to": "Norway", "value": 1}, {"from": "Korea, Republic of", "to": "Singapore", "value": 1}, {"from": "Indonesia", "to": "Singapore", "value": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": true,
+        "filter": true
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "repulsion": {
+            "centralGravity": 0.2,
+            "damping": 0.09,
+            "nodeDistance": 70,
+            "springConstant": 0.05,
+            "springLength": 250
+        },
+        "solver": "repulsion",
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+        // if this network requires displaying the configure window,
+        // put it in its div
+        options.configure["container"] = document.getElementById("config");
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>
